@@ -1,0 +1,14 @@
+cloud firestore
+-name ""
+-description ""
+-colors {}
+-imgDetails []
+-imgThumb ""
+-price ""
+-size []
+-sex ""
+
+home prodct
+unisex product
+
+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
