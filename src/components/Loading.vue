@@ -1,5 +1,7 @@
 <template>
-  <div class="spin"></div>
+  <div class="h-screen">
+    <div class="spin"></div>
+  </div>
 </template>
 
 <style>

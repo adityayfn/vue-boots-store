@@ -18,12 +18,16 @@
       <li v-if="cartQty <= 0">
         <h1 class="my-0 mx-auto text-xl font-bold">Empty Cart</h1>
       </li>
-      <li v-for="product in carts" v-if="cartQty >= 1">
+      <li
+        v-for="(product, index) in displayedItems"
+        :key="index"
+        v-if="cartQty >= 1"
+      >
         <div class="flex">
           <img :src="product.img" alt="" class="w-[50px]" />
           <h1 class="flex-1 text-sm">{{ product.name }}</h1>
           <p>{{ product.size }}</p>
-          <p>${{ product.price }}</p>
+          <p>${{ itemSingle[index] }}</p>
           <div class="flex gap-3 bg-black text-yellow-400 p-1 rounded">
             <button @click="deleteItem(product)">
               <font-awesome-icon icon="fa-solid fa-minus" />
@@ -37,17 +41,18 @@
       </li>
       <li v-if="cartQty >= 1">
         <div class="my-0 mx-auto">
-          <div>
-            <router-link
-              :to="{ name: 'ShowCarts' }"
-              class="bg-black text-yellow-400 p-2 rounded hover:bg-slate-900"
-            >
-              Show Carts
-            </router-link>
-          </div>
-          <div class="bg-black text-yellow-400 p-2 rounded">
-            <h1 class="font-semibold">${{ cartTotal }}</h1>
-          </div>
+          <!-- <router-link
+            :to="{ name: 'ShowCarts' }"
+            class="bg-black text-yellow-400 p-2 rounded hover:bg-slate-900"
+          >
+            Show Carts
+          </router-link> -->
+          <button
+            @click="showMore()"
+            class="bg-black text-yellow-400 p-2 rounded hover:bg-slate-900"
+          >
+            <h1>{{ carts.length - 3 }} More Items</h1>
+          </button>
         </div>
       </li>
     </ul>
@@ -57,17 +62,17 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import { ref, onMounted, computed } from "vue"
 import { inject } from "vue"
+import { useRouter } from "vue-router"
 export default {
   components: {
     FontAwesomeIcon,
   },
   setup() {
+    const router = useRouter()
     let carts = ref()
     const cart = inject("cart")
-    // let emptyCart = ref()
 
     onMounted(() => {
-      console.log(cart)
       carts.value = cart.carts
     })
 
@@ -94,8 +99,37 @@ export default {
     const addItem = (product) => {
       product.qty++
     }
+    const itemSingle = computed(() => {
+      let total = {}
 
-    return { cartQty, carts, cartTotal, deleteItem, addItem }
+      carts.value.forEach((item, index) => {
+        total[index] = item.price * carts.value[index].qty
+      })
+
+      return total
+    })
+
+    const limit = ref(3)
+    const displayedItems = computed(() => {
+      console.log(carts.value)
+      return carts.value.slice(0, limit.value)
+    })
+
+    const showMore = () => {
+      console.log(displayedItems)
+      router.push("/carts")
+    }
+
+    return {
+      cartQty,
+      carts,
+      cartTotal,
+      deleteItem,
+      addItem,
+      itemSingle,
+      showMore,
+      displayedItems,
+    }
   },
 }
 </script>

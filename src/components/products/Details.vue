@@ -173,10 +173,9 @@
 </template>
 <script>
 import getDatas from "../../composable/getDatas"
-import { ref, onMounted, computed } from "vue"
+import { ref, computed, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
-// import Loading from "../Loading.vue"
 
 import { inject } from "vue"
 
@@ -186,6 +185,8 @@ export default {
     // Loading,
   },
   setup() {
+    const isAddToCart = ref(false)
+
     const route = useRoute()
     const currentIndex = ref(0)
     const sz = ref("")
@@ -223,29 +224,42 @@ export default {
           return false
         }
       })
-      if (productExist.length) {
-        cart.carts[productIndex].qty++
-      } else if (sz.value && color.value) {
-        cart.carts.push({
-          id: data.id,
-          name: data.name,
-          img: color.value,
-          size: sz.value,
-          price: data.price,
-          qty: 1,
-        })
-        notif.value = "Successfully add product to cart"
-        alert.value = true
+      if (!isAddToCart.value) {
+        isAddToCart.value = true
+        if (productExist.length) {
+          cart.carts[productIndex].qty++
+          notif.value = "Successfully add same product to cart"
+          alert.value = true
+          setTimeout(() => {
+            notif.value = null
+          }, 1000)
+        } else if (sz.value && color.value) {
+          cart.carts.push({
+            id: data.id,
+            name: data.name,
+            img: color.value,
+            size: sz.value,
+            price: data.price,
+            qty: 1,
+          })
+          sz.value = null
+          color.value = null
+          notif.value = "Successfully add product to cart"
+          alert.value = true
+          setTimeout(() => {
+            notif.value = null
+          }, 1000)
+          console.log(cart)
+        } else {
+          notif.value =
+            "Failed add product to cart, please choose color or size first"
+          alert.value = false
+          setTimeout(() => {
+            notif.value = null
+          }, 1000)
+        }
         setTimeout(() => {
-          notif.value = null
-        }, 2000)
-        console.log(cart)
-      } else {
-        notif.value =
-          "Failed add product to cart, please choose color or size first"
-        alert.value = false
-        setTimeout(() => {
-          notif.value = null
+          isAddToCart.value = false
         }, 2000)
       }
     }
@@ -276,6 +290,7 @@ export default {
       notif,
       alert,
       chooseColor,
+      isAddToCart,
     }
   },
 }
