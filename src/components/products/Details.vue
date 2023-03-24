@@ -1,5 +1,5 @@
 <template>
-  <div class="h-auto min-[640px]:hidden bg-white text-black">
+  <div class="h-auto min-[640px]:hidden bg-white text-black relative">
     <div v-for="data in details" class="flex flex-wrap">
       <div class="px-8 mt-32 flex max-sm:flex-col max-sm:gap-2">
         <div class="title">
@@ -94,7 +94,7 @@
 
   <!--  -->
 
-  <div class="h-auto max-sm:hidden bg-white text-black">
+  <div class="h-auto max-sm:hidden bg-white text-black relative">
     <div v-for="data in details" class="flex flex-wrap">
       <div
         class="px-8 mt-32 max-w-[40rem] flex flex-col max-lg:my-0 max-lg:mx-auto max-lg:mt-32"
@@ -176,6 +176,7 @@ import getDatas from "../../composable/getDatas"
 import { ref, computed, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import Loading from "../../components/Loading.vue"
 
 import { inject } from "vue"
 

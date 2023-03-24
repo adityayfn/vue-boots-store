@@ -6,7 +6,8 @@
     <div v-if="isLoad">
       <Navbar />
       <router-view></router-view>
-
+    </div>
+    <div v-if="isLoading">
       <Footer />
     </div>
   </div>
@@ -27,15 +28,19 @@ export default {
   },
   setup() {
     const isLoad = ref(false)
-
+    const isLoading = ref(false)
     onMounted(() => {
       setTimeout(() => {
         isLoad.value = true
       })
+      setTimeout(() => {
+        isLoading.value = true
+      }, 5000)
     })
 
     return {
       isLoad,
+      isLoading,
     }
   },
 }

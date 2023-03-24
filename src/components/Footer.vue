@@ -1,8 +1,6 @@
 <template>
-  <div class="relative bottom-0 w-full">
-    <div
-      class="flex h-auto bg-black flex-col text-zinc-400 w-full relative pt-10"
-    >
+  <div class="absolute w-full">
+    <div class="flex h-auto bg-black flex-col text-zinc-400 w-full pt-10">
       <div class="flex p-10 gap-10 justify-between max-sm:flex-col">
         <div class="flex flex-col">
           <h1
