@@ -41,17 +41,16 @@
       </li>
       <li v-if="cartQty >= 1">
         <div class="my-0 mx-auto">
-          <!-- <router-link
-            :to="{ name: 'ShowCarts' }"
-            class="bg-black text-yellow-400 p-2 rounded hover:bg-slate-900"
-          >
-            Show Carts
-          </router-link> -->
           <button
             @click="showMore()"
             class="bg-black text-yellow-400 p-2 rounded hover:bg-slate-900"
           >
-            <h1>{{ carts.length - 3 }} More Items</h1>
+            <div v-if="carts.length <= 3">
+              <h1>Show Carts</h1>
+            </div>
+            <div v-if="carts.length > 3">
+              <h1>{{ carts.length - 3 }} More Items</h1>
+            </div>
           </button>
         </div>
       </li>
@@ -70,22 +69,14 @@ export default {
   setup() {
     const router = useRouter()
     let carts = ref()
-    const cart = inject("cart")
+    const state = inject("carts")
 
     onMounted(() => {
-      carts.value = cart.carts
+      carts.value = state.carts
     })
 
     const cartQty = computed(() => {
-      return cart.carts.length
-    })
-
-    const cartTotal = computed(() => {
-      let sum = 0
-      for (let key in carts.value) {
-        sum = sum + carts.value[key].price * carts.value[key].qty
-      }
-      return sum
+      return state.carts.length
     })
 
     const deleteItem = (product) => {
@@ -116,14 +107,13 @@ export default {
     })
 
     const showMore = () => {
-      console.log(displayedItems)
       router.push("/carts")
     }
 
     return {
       cartQty,
       carts,
-      cartTotal,
+
       deleteItem,
       addItem,
       itemSingle,

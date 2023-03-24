@@ -37,7 +37,7 @@
             v-if="index === currentIndex"
             class="card max-sm:w-46 w-52 max-sm:my-10 bg-slate-100 shadow-xl cursor-pointer my-0 mx-auto"
           >
-            <img :src="imgd" alt="" class="max-sm:w-full w-56" />
+            <img :src="imgd" alt="" class="max-sm:w-full w-48" />
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
             <img
               :src="color"
               alt=""
-              class="w-24 cursor-pointer active:p-2"
+              class="w-20 cursor-pointer active:p-2"
               @click="chooseColor(color, key)"
             />
           </div>
@@ -82,7 +82,7 @@
         </div>
         <div class="">
           <button
-            class="max-sm:w-48 max-sm:h-10 mt-3 rounded-xl bg-yellow-400 text-xl"
+            class="max-sm:w-48 max-sm:h-10 rounded-xl bg-yellow-400 text-xl"
             @click="addToCart(data)"
           >
             ADD TO CART
@@ -131,7 +131,7 @@
             <img
               :src="color"
               alt=""
-              class="w-24 cursor-pointer active:p-2"
+              class="w-24 cursor-pointer active:p-2 hover:p-1"
               @click="chooseColor(color, key)"
             />
           </div>
@@ -199,7 +199,7 @@ export default {
     const { datas, error, load } = getDatas()
     load()
 
-    const cart = inject("cart")
+    const state = inject("carts")
 
     const addSize = (size) => {
       sz.value = size
@@ -211,7 +211,7 @@ export default {
 
     const addToCart = (data) => {
       let productIndex
-      let productExist = cart.carts.filter(function (item, index) {
+      let productExist = state.carts.filter(function (item, index) {
         if (
           item.id === data.id &&
           item.size === sz.value &&
@@ -227,20 +227,22 @@ export default {
       if (!isAddToCart.value) {
         isAddToCart.value = true
         if (productExist.length) {
-          cart.carts[productIndex].qty++
+          state.carts[productIndex].qty++
           notif.value = "Successfully add same product to cart"
           alert.value = true
           setTimeout(() => {
             notif.value = null
           }, 1000)
         } else if (sz.value && color.value) {
-          cart.carts.push({
+          state.carts.push({
             id: data.id,
             name: data.name,
             img: color.value,
             size: sz.value,
             price: data.price,
             qty: 1,
+            selected: false,
+            isCheckout: false,
           })
           sz.value = null
           color.value = null
@@ -249,7 +251,7 @@ export default {
           setTimeout(() => {
             notif.value = null
           }, 1000)
-          console.log(cart)
+          console.log(state)
         } else {
           notif.value =
             "Failed add product to cart, please choose color or size first"
@@ -283,7 +285,7 @@ export default {
       sz,
       addToCart,
       addSize,
-      cart,
+      state,
       next,
       prev,
       currentIndex,

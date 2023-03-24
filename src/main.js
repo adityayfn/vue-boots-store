@@ -5,7 +5,7 @@ import router from "./router"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from "@fortawesome/free-brands-svg-icons"
 import mitt from "mitt"
-import { cart } from "./composable/useCart"
+import { state } from "./composable/useCart"
 
 import {
   faMoon,
@@ -30,4 +30,4 @@ library.add(
   faMinus
 )
 
-app.use(router).provide("cart", cart).mount("#app")
+app.use(router).provide("carts", state).mount("#app")

@@ -15,12 +15,14 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@splidejs/vue-splide": "^0.6.12",
+    "@vue/reactivity": "^3.2.47",
     "daisyui": "^2.49.0",
     "firebase": "^9.16.0",
     "mitt": "^3.0.0",
     "swiper": "^8.4.7",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vue-toast-notification": "^3.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
