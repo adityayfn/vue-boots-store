@@ -95,13 +95,10 @@
             </div>
           </div>
           <div v-if="selects >= 1">
-            <h1 class="text-xl">
-              Total Price = ${{ finalPrice }} (Include Tax)
-            </h1>
+            <h1 class="text-xl">Total Price = ${{ finalPrice }}</h1>
+            <p>(Include Tax and Shipping)</p>
           </div>
-          <div v-else>
-            <h1 class="text-xl">Total Price = (Include Tax)</h1>
-          </div>
+          <div v-else></div>
 
           <div class="modal-action">
             <label

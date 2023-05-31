@@ -1,11 +1,11 @@
 <template>
   <div
-    class="h-auto py-24 px-4 bg-slate-100 text-2xl text-black min-[412px]:text-xs min-[640px]:text-base"
+    class="h-auto py-24 px-4 bg-slate-100 text-2xl text-black min-[380px]:text-xs min-[640px]:text-base"
   >
     <div class="bg-white w-full p-4 my-4 border-2">
       <h1 class="text-xl">Your Carts ({{ unCheckout.length }})</h1>
     </div>
-    <div class="flex flex-col gap-4" v-if="state.carts.length < 1">
+    <div class="flex flex-col gap-4 h-96" v-if="state.carts.length < 1">
       <div class="my-0 mx-auto">
         <h1 class="text-2xl font-bold">Empty Carts</h1>
       </div>
@@ -24,7 +24,6 @@
       v-for="(product, index) in unCheckout"
       :key="index"
     >
-      <div></div>
       <div class="absolute z-[8] top-6">
         <label class="">
           <input
