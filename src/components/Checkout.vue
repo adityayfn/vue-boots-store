@@ -94,7 +94,7 @@
             </div>
           </div>
           <div>
-            <h1 class="text-xl">Total Price = ${{ finalPrice }}</h1>
+            <h1 class="text-xl">Total Price = ${{ finalPrice }} (Include Tax) </h1>
           </div>
 
           <div class="modal-action">
