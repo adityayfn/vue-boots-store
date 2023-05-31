@@ -18,8 +18,9 @@
       <label
         for="my-modal-2"
         class="modal-button btn rounded bg-yellow-400 cursor-pointer text-black hover:bg-yellow-500"
-        ><span class="">Checkout</span></label
       >
+        <span class="">Checkout</span>
+      </label>
       <input type="checkbox" id="my-modal-2" class="modal-toggle" />
       <div class="modal">
         <div class="modal-box bg-yellow-400">
@@ -93,8 +94,13 @@
               </label>
             </div>
           </div>
-          <div>
-            <h1 class="text-xl">Total Price = ${{ finalPrice }} (Include Tax) </h1>
+          <div v-if="selects >= 1">
+            <h1 class="text-xl">
+              Total Price = ${{ finalPrice }} (Include Tax)
+            </h1>
+          </div>
+          <div v-else>
+            <h1 class="text-xl">Total Price = (Include Tax)</h1>
           </div>
 
           <div class="modal-action">
@@ -158,10 +164,10 @@ export default {
     })
 
     const checkout = () => {
-      const selectedItem = state.carts.filter((item) => item.selected == true)
+      const selectedItems = state.carts.filter((item) => item.selected == true)
       const isCheckout = state.carts.filter((item) => item.isCheckout == false)
 
-      if (selectedItem.length <= 0) {
+      if (selectedItems.length <= 0) {
         toast.error("Please choose item first")
       } else if (
         form.fullname == "" ||
@@ -180,9 +186,12 @@ export default {
         })
         toast.success("Checkout Success")
       }
-
-      console.log(form)
     }
+
+    const selects = computed(() => {
+      const selectedItems = state.carts.filter((item) => item.selected == true)
+      return selectedItems.length
+    })
 
     const isAllSelect = () => {
       return state.carts.every((item) => item.selected)
@@ -193,7 +202,6 @@ export default {
     }
 
     const onSelectAllChange = () => {
-      // selectAll.value = !selectAll.value
       state.carts.forEach((item) => (item.selected = selectAll.value))
     }
     const onItemChange = (index) => {
@@ -203,6 +211,7 @@ export default {
         updateSelectAll()
       }
     }
+
     watch(
       state.carts,
       () => {
@@ -224,6 +233,7 @@ export default {
       finalPrice,
       priceAfterTax,
       priceAfterShipping,
+      selects,
     }
   },
 }
