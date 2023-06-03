@@ -165,14 +165,14 @@ export default {
       const isCheckout = state.carts.filter((item) => item.isCheckout == false)
 
       if (selectedItems.length <= 0) {
-        toast.error("Please choose item first")
+        toast.error("Please choose item first", { position: "top" })
       } else if (
         form.fullname == "" ||
         form.email == "" ||
         form.address == "" ||
         form.payment == ""
       ) {
-        toast.error("Please fill out all fields")
+        toast.error("Please fill out all fields", { position: "top" })
       } else {
         state.carts = state.carts.filter((item) => !item.selected)
         Object.assign(form, {
@@ -181,7 +181,7 @@ export default {
           address: "",
           payment: "",
         })
-        toast.success("Checkout Success")
+        toast.success("Checkout Success", { position: "top" })
       }
     }
 
