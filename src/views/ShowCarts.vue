@@ -39,21 +39,22 @@
       <div class="flex relative justify-between gap-2">
         <div class="product w-[350px]">
           <div>
-            <h1 class="text-base text-center font-bold pb-4">Product</h1>
+            <h1 class="text-xl text-center font-bold pb-4">Product</h1>
           </div>
           <div class="flex gap-2">
-            <div></div>
             <div>
               <img :src="product.img" alt="" class="w-20" />
             </div>
-            <div class="">
-              <h1 class="">{{ product.name }}</h1>
+            <div class="w-48">
+              <h1 class="text-center">{{ product.name }}</h1>
             </div>
           </div>
         </div>
         <div class="price">
           <div>
-            <h1 class="text-base text-center font-bold pb-4">Price</h1>
+            <h1 class="text-base md:text-xl text-center font-bold pb-4">
+              Price
+            </h1>
           </div>
           <div>
             <h1>${{ itemSingle[index] }}</h1>
@@ -61,7 +62,9 @@
         </div>
         <div class="size">
           <div>
-            <h1 class="text-base text-center font-bold pb-4">Size</h1>
+            <h1 class="text-base md:text-xl text-center font-bold pb-4">
+              Size
+            </h1>
           </div>
           <div>
             <h1>{{ product.size }}</h1>
@@ -69,7 +72,9 @@
         </div>
         <div class="qty">
           <div>
-            <h1 class="text-base text-center font-bold pb-4">Quantity</h1>
+            <h1 class="text-base md:text-xl text-center font-bold pb-4">
+              Quantity
+            </h1>
           </div>
           <div class="flex gap-3 bg-black text-yellow-400 p-1 rounded">
             <button @click="deleteItem(product)">

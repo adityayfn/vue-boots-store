@@ -3,10 +3,10 @@
     <div v-for="data in details" class="flex flex-wrap">
       <div class="px-8 mt-32 flex max-sm:flex-col max-sm:gap-2">
         <div class="title">
-          <h1 class="font-bold text-sm">{{ data.name }}</h1>
+          <h1 class="font-bold text-2xl">{{ data.name }}</h1>
         </div>
         <div class="price">
-          <h2 class="font-bold text-sm">${{ data.price }}</h2>
+          <h2 class="font-bold text-xl">${{ data.price }}</h2>
         </div>
       </div>
 

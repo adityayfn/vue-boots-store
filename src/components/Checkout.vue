@@ -111,7 +111,7 @@
           </div>
         </div>
       </div>
-      <h1 class="text-sm p-2">
+      <h1 class="text-base mdL:text-xl p-2">
         Total Price <span class="font-bold">${{ cartTotal }}</span>
       </h1>
     </div>
